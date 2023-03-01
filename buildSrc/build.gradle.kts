@@ -25,8 +25,8 @@ repositories {
 dependencies {
     api("com.android.tools.build:gradle:7.4.1")
     api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
-    api(plugin("io.gitlab.arturbosch.detekt", version = "1.22.0"))
-    api(plugin("org.jetbrains.kotlinx.kover", version = "0.6.1"))
+    api(plugin("io.gitlab.arturbosch.detekt", "1.22.0"))
+    api(plugin("org.jetbrains.kotlinx.kover", "0.6.1"))
 }
 
 fun DependencyHandler.plugin(id: String, version: String) =

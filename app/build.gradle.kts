@@ -1,3 +1,5 @@
-import com.zeyadgasser.plugins.AndroidModulePlugin
+dependencies {
+//    implementation(project(":android-module-plugin"))
+}
 
-project.apply<AndroidModulePlugin>()
+//apply<com.zeyadgasser.plugins.AndroidModulePlugin>()

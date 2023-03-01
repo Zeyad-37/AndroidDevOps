@@ -6,7 +6,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class CoveragePlugin : Plugin<Project> {
+class KoveragePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
         plugins.apply("org.jetbrains.kotlinx.kover")
         extensions.configure(KoverProjectConfig::class) {

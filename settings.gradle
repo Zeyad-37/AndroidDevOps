@@ -16,3 +16,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "DevOps"
 include ':app'
+include ':gitHooks'
+include ':coverage'
+include ':testing'
+include ':android-module-plugin'
+include ':detekt'
+include ':utils'

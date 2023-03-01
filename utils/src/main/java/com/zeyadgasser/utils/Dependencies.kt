@@ -1,4 +1,4 @@
-package com.zeyadgasser.plugins
+package com.zeyadgasser.utils//package com.zeyadgasser.plugins
 
 object AndroidVersions {
     const val compileSdkVersion = 33

@@ -3,6 +3,13 @@ package com.zeyadgasser.plugins
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.AppExtension
 import com.android.builder.core.DefaultApiVersion
+import com.zeyadgasser.utils.AndroidConfig
+import com.zeyadgasser.utils.AndroidVersions
+import com.zeyadgasser.utils.DepVersions.composeUIVersion
+import com.zeyadgasser.utils.DepVersions.hiltVersion
+import com.zeyadgasser.utils.DepVersions.lifecycleVersion
+import com.zeyadgasser.utils.DepVersions.navVersion
+import com.zeyadgasser.utils.android
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -20,7 +27,7 @@ class AndroidModulePlugin : Plugin<Project> {
         plugins.apply("kotlin-kapt")
         plugins.apply("com.google.dagger.hilt.android")
         apply<TestingPlugin>()
-        apply<CoveragePlugin>()
+        apply<KoveragePlugin>()
         apply<DetektPlugin>()
         extensions.configure<ApplicationExtension>("android") {
             lint {
@@ -80,44 +87,35 @@ class AndroidModulePlugin : Plugin<Project> {
 
     private fun Project.lifecycle() {
         dependencies.add(
-            "implementation",
-            "androidx.lifecycle:lifecycle-viewmodel-compose:${DepVersions.lifecycleVersion}"
+            "implementation", "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.lifecycle:lifecycle-viewmodel-ktx:${DepVersions.lifecycleVersion}"
+            "implementation", "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.lifecycle:lifecycle-runtime-ktx:${DepVersions.lifecycleVersion}"
+            "implementation", "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
         )
     }
 
     private fun Project.compose() {
         dependencies.add(
-            "debugImplementation",
-            "androidx.compose.ui:ui-tooling:${DepVersions.composeUIVersion}"
+            "debugImplementation", "androidx.compose.ui:ui-tooling:$composeUIVersion"
         )
         dependencies.add(
-            "debugImplementation",
-            "androidx.compose.ui:ui-test-manifest:${DepVersions.composeUIVersion}"
+            "debugImplementation", "androidx.compose.ui:ui-test-manifest:$composeUIVersion"
         )
         dependencies.add("implementation", "androidx.activity:activity-compose:1.6.1")
         dependencies.add(
-            "implementation",
-            "androidx.compose.ui:ui:${DepVersions.composeUIVersion}"
+            "implementation", "androidx.compose.ui:ui:$composeUIVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.compose.ui:ui-tooling-preview:${DepVersions.composeUIVersion}"
+            "implementation", "androidx.compose.ui:ui-tooling-preview:$composeUIVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.compose.ui:ui-viewbinding:${DepVersions.composeUIVersion}"
+            "implementation", "androidx.compose.ui:ui-viewbinding:$composeUIVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.compose.runtime:runtime:${DepVersions.composeUIVersion}"
+            "implementation", "androidx.compose.runtime:runtime:$composeUIVersion"
         )
         dependencies.add("implementation", "androidx.compose.foundation:foundation:1.3.1")
         dependencies.add("implementation", "androidx.compose.material:material:1.3.1")
@@ -125,36 +123,29 @@ class AndroidModulePlugin : Plugin<Project> {
 
     private fun Project.navigate() {
         dependencies.add(
-            "implementation",
-            "androidx.navigation:navigation-compose:${DepVersions.navVersion}"
+            "implementation", "androidx.navigation:navigation-compose:$navVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.navigation:navigation-fragment:${DepVersions.navVersion}"
+            "implementation", "androidx.navigation:navigation-fragment:$navVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.navigation:navigation-fragment-ktx:${DepVersions.navVersion}"
+            "implementation", "androidx.navigation:navigation-fragment-ktx:$navVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.navigation:navigation-ui:${DepVersions.navVersion}"
+            "implementation", "androidx.navigation:navigation-ui:$navVersion"
         )
         dependencies.add(
-            "implementation",
-            "androidx.navigation:navigation-ui-ktx:${DepVersions.navVersion}"
+            "implementation", "androidx.navigation:navigation-ui-ktx:$navVersion"
         )
         dependencies.add("implementation", "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     }
 
     private fun Project.hilt() {
         dependencies.add(
-            "implementation",
-            "com.google.dagger:hilt-android:${DepVersions.hiltVersion}"
+            "implementation", "com.google.dagger:hilt-android:$hiltVersion"
         )
         dependencies.add(
-            "kapt",
-            "com.google.dagger:hilt-compiler:${DepVersions.hiltVersion}"
+            "kapt", "com.google.dagger:hilt-compiler:$hiltVersion"
         )
     }
 
