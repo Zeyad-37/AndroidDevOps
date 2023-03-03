@@ -15,8 +15,12 @@ class DetektPlugin : Plugin<Project> {
         plugins.apply("io.gitlab.arturbosch.detekt")
         configure<DetektExtension> {
             ignoreFailures = true
-//            config.from(files("$rootDir/config/detekt/detekt.yml"))
-//            baseline = file("$projectDir/detekt-baseline.xml")
+            file("$rootDir/config/detekt/detekt.yml")
+                .takeIf { it.exists() }
+                ?.let { config.from(it) }
+            file("$rootDir/config/detekt/detekt-baseline.xml")
+                .takeIf { it.exists() }
+                ?.let { baseline = it }
         }
         dependencies {
 //            "detektPlugins"(CoreLib.Detekt.glovoRules)
@@ -26,7 +30,9 @@ class DetektPlugin : Plugin<Project> {
         }
         tasks.withType<Detekt>().configureEach {
             buildUponDefaultConfig = true
-//        baseline.set(file("$rootDir/config/detekt/baseline.xml"))
+            file("$rootDir/config/detekt/detekt-baseline.xml")
+                .takeIf { it.exists() }
+                ?.let { baseline.set(it) }
             jvmTarget = JavaVersion.VERSION_11.toString()
             reports {
                 html.required.set(true)

@@ -33,7 +33,8 @@ class AndroidModulePlugin : Plugin<Project> {
             lint {
                 checkDependencies = true
                 abortOnError = false
-//                baseline = file("lint-baseline.xml")
+                file("$rootDir/config/lint/lint-baseline.xml")
+                    .takeIf { it.exists() }?.let { baseline = it }
             }
         }
         with(android()) {

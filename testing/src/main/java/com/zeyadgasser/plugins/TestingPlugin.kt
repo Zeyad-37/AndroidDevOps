@@ -41,12 +41,10 @@ class TestingPlugin : Plugin<Project> {
 
     private fun Project.hilt() {
         dependencies.add(
-            "androidTestImplementation",
-            "com.google.dagger:hilt-android-testing:$hiltVersion"
+            "androidTestImplementation", "com.google.dagger:hilt-android-testing:$hiltVersion"
         )
         dependencies.add(
-            "kaptAndroidTest",
-            "com.google.dagger:hilt-android-compiler:$hiltVersion"
+            "kaptAndroidTest", "com.google.dagger:hilt-android-compiler:$hiltVersion"
         )
     }
 
@@ -54,8 +52,7 @@ class TestingPlugin : Plugin<Project> {
         dependencies.add("androidTestImplementation", "androidx.test.ext:junit:1.1.5")
         dependencies.add("androidTestImplementation", "androidx.test.espresso:espresso-core:3.5.1")
         dependencies.add(
-            "androidTestImplementation",
-            "androidx.compose.ui:ui-test-junit4:$composeUIVersion"
+            "androidTestImplementation", "androidx.compose.ui:ui-test-junit4:$composeUIVersion"
         )
     }
 
@@ -75,35 +72,28 @@ class TestingPlugin : Plugin<Project> {
     private fun Project.junit() {
         dependencies.add("testImplementation", "junit:junit:4.13.2")
         dependencies.add(
-            "testImplementation",
-            "org.junit.jupiter:junit-jupiter:$junit5Version"
+            "testImplementation", "org.junit.jupiter:junit-jupiter:$junit5Version"
         )
         dependencies.add(
-            "testImplementation",
-            "org.junit.jupiter:junit-jupiter:$junit5Version"
+            "testImplementation", "org.junit.jupiter:junit-jupiter:$junit5Version"
         )
         dependencies.add(
-            "testRuntimeOnly",
-            "org.junit.jupiter:junit-jupiter-params:$junit5Version"
+            "testRuntimeOnly", "org.junit.jupiter:junit-jupiter-params:$junit5Version"
         )
         dependencies.add(
-            "testRuntimeOnly",
-            "org.junit.vintage:junit-vintage-engine:$junit5Version"
+            "testRuntimeOnly", "org.junit.vintage:junit-vintage-engine:$junit5Version"
         )
         dependencies.add(
             "androidTestImplementation", "androidx.test:runner:1.5.2"
         )
         dependencies.add(
-            "androidTestImplementation",
-            "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+            "androidTestImplementation", "org.junit.jupiter:junit-jupiter-api:$junit5Version"
         )
         dependencies.add(
-            "androidTestImplementation",
-            "de.mannodermaus.junit5:android-test-core:1.2.2"
+            "androidTestImplementation", "de.mannodermaus.junit5:android-test-core:1.2.2"
         )
         dependencies.add(
-            "androidTestRuntimeOnly",
-            "de.mannodermaus.junit5:android-test-runner:1.2.2"
+            "androidTestRuntimeOnly", "de.mannodermaus.junit5:android-test-runner:1.2.2"
         )
     }
 
