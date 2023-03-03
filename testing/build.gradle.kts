@@ -20,7 +20,7 @@ version = "1.0"
 gradlePlugin {
     plugins {
         create("TestingPlugin") {
-            id = "com.zeyadgasser.gradle.plugin.testing"
+            id = "com.zeyadgasser.gradle.plugins.testing"
             implementationClass = "com.zeyadgasser.plugins.TestingPlugin"
             displayName = "Testing Plugin"
             description = "Plugin for setting up testing for kotlin modules"

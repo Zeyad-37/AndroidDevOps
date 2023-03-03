@@ -15,7 +15,7 @@ version = "1.0"
 gradlePlugin {
     plugins {
         create("gitHooksPlugin") {
-            id = "com.zeyadgasser.gradle.plugin.git-hooks-plugin"
+            id = "com.zeyadgasser.gradle.plugins.git-hooks-plugin"
             implementationClass = "com.zeyadgasser.plugins.GitHooksPlugin"
             displayName = "GitHooksPlugin"
             description = "Plugin install git hooks from config file"

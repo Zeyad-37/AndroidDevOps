@@ -24,7 +24,7 @@ version = "1.0"
 gradlePlugin {
     plugins {
         create("AndroidModulePlugin") {
-            id = "com.zeyadgasser.gradle.plugin.android-module-plugin"
+            id = "com.zeyadgasser.gradle.plugins.android-module-plugin"
             implementationClass = "com.zeyadgasser.plugins.AndroidModulePlugin"
             displayName = "Android Module Plugin"
             description = "Plugin for setting up Android modules (App & Lib)"

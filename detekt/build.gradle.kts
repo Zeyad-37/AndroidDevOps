@@ -21,7 +21,7 @@ version = "1.0"
 gradlePlugin {
     plugins {
         create("detektPlugin") {
-            id = "com.zeyadgasser.gradle.plugin.detekt-plugin"
+            id = "com.zeyadgasser.gradle.plugins.detekt-plugin"
             implementationClass = "com.zeyadgasser.plugins.DetektPlugin"
             displayName = "Detekt Plugin"
             description = "Plugin configures detekt to kotlin project"

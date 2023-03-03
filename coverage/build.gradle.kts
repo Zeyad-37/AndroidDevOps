@@ -21,7 +21,7 @@ version = "1.0"
 gradlePlugin {
     plugins {
         create("KoveragePlugin") {
-            id = "com.zeyadgasser.gradle.plugin.koverage"
+            id = "com.zeyadgasser.gradle.plugins.koverage"
             implementationClass = "com.zeyadgasser.plugins.KoveragePlugin"
             displayName = "Koverage Plugin"
             description = "Plugin for setting up Kover for kotlin modules"
