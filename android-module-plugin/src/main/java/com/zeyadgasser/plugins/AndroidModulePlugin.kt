@@ -2,20 +2,23 @@ package com.zeyadgasser.plugins
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.AppExtension
+import com.android.build.gradle.BaseExtension
 import com.android.builder.core.DefaultApiVersion
-import com.zeyadgasser.utils.AndroidConfig
-import com.zeyadgasser.utils.AndroidVersions
-import com.zeyadgasser.utils.DepVersions.composeUIVersion
-import com.zeyadgasser.utils.DepVersions.hiltVersion
-import com.zeyadgasser.utils.DepVersions.lifecycleVersion
-import com.zeyadgasser.utils.DepVersions.navVersion
-import com.zeyadgasser.utils.android
+import org.gradle.api.GradleException
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
+
+const val COMPILE_SDK_VERSION = 33
+const val MIN_SDK_VERSION = 24
+const val TARGET_SDK_VERSION = 33
+const val LIFECYCLE_VERSION = "2.5.1"
+const val NAV_VERSION = "2.5.3"
+const val HILT_VERSION = "2.44.2"
+const val COMPOSE_UI_VERSION = "1.3.3"
 
 class AndroidModulePlugin : Plugin<Project> {
 
@@ -38,14 +41,14 @@ class AndroidModulePlugin : Plugin<Project> {
             }
         }
         with(android()) {
-            compileSdkVersion(AndroidVersions.compileSdkVersion)
-            buildToolsVersion(AndroidVersions.buildToolsVersion)
+            compileSdkVersion(COMPILE_SDK_VERSION)
+            buildToolsVersion("33.0.1")
             defaultConfig {
-                if (isAppModule) applicationId = AndroidConfig.appId
-                minSdkVersion = DefaultApiVersion(AndroidVersions.minSdkVersion)
-                targetSdkVersion = DefaultApiVersion(AndroidVersions.targetSdkVersion)
-                versionCode = AndroidConfig.versionCode
-                versionName = AndroidConfig.versionName
+                if (isAppModule) applicationId = "com.zeyadgasser.platform"
+                minSdkVersion = DefaultApiVersion(MIN_SDK_VERSION)
+                targetSdkVersion = DefaultApiVersion(TARGET_SDK_VERSION)
+                versionCode = getVersionCode()
+                versionName = getVersionName()
             }
             buildFeatures.compose = true
             composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
@@ -88,35 +91,35 @@ class AndroidModulePlugin : Plugin<Project> {
 
     private fun Project.lifecycle() {
         dependencies.add(
-            "implementation", "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+            "implementation", "androidx.lifecycle:lifecycle-viewmodel-compose:$LIFECYCLE_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+            "implementation", "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+            "implementation", "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
         )
     }
 
     private fun Project.compose() {
         dependencies.add(
-            "debugImplementation", "androidx.compose.ui:ui-tooling:$composeUIVersion"
+            "debugImplementation", "androidx.compose.ui:ui-tooling:$COMPOSE_UI_VERSION"
         )
         dependencies.add(
-            "debugImplementation", "androidx.compose.ui:ui-test-manifest:$composeUIVersion"
+            "debugImplementation", "androidx.compose.ui:ui-test-manifest:$COMPOSE_UI_VERSION"
         )
         dependencies.add("implementation", "androidx.activity:activity-compose:1.6.1")
         dependencies.add(
-            "implementation", "androidx.compose.ui:ui:$composeUIVersion"
+            "implementation", "androidx.compose.ui:ui:$COMPOSE_UI_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.compose.ui:ui-tooling-preview:$composeUIVersion"
+            "implementation", "androidx.compose.ui:ui-tooling-preview:$COMPOSE_UI_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.compose.ui:ui-viewbinding:$composeUIVersion"
+            "implementation", "androidx.compose.ui:ui-viewbinding:$COMPOSE_UI_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.compose.runtime:runtime:$composeUIVersion"
+            "implementation", "androidx.compose.runtime:runtime:$COMPOSE_UI_VERSION"
         )
         dependencies.add("implementation", "androidx.compose.foundation:foundation:1.3.1")
         dependencies.add("implementation", "androidx.compose.material:material:1.3.1")
@@ -124,44 +127,51 @@ class AndroidModulePlugin : Plugin<Project> {
 
     private fun Project.navigate() {
         dependencies.add(
-            "implementation", "androidx.navigation:navigation-compose:$navVersion"
+            "implementation", "androidx.navigation:navigation-compose:$NAV_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.navigation:navigation-fragment:$navVersion"
+            "implementation", "androidx.navigation:navigation-fragment:$NAV_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.navigation:navigation-fragment-ktx:$navVersion"
+            "implementation", "androidx.navigation:navigation-fragment-ktx:$NAV_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.navigation:navigation-ui:$navVersion"
+            "implementation", "androidx.navigation:navigation-ui:$NAV_VERSION"
         )
         dependencies.add(
-            "implementation", "androidx.navigation:navigation-ui-ktx:$navVersion"
+            "implementation", "androidx.navigation:navigation-ui-ktx:$NAV_VERSION"
         )
         dependencies.add("implementation", "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     }
 
     private fun Project.hilt() {
         dependencies.add(
-            "implementation", "com.google.dagger:hilt-android:$hiltVersion"
+            "implementation", "com.google.dagger:hilt-android:$HILT_VERSION"
         )
         dependencies.add(
-            "kapt", "com.google.dagger:hilt-compiler:$hiltVersion"
+            "kapt", "com.google.dagger:hilt-compiler:$HILT_VERSION"
         )
     }
 
-    private fun Project.setupIfApplication() =
-        plugins.withId("com.android.application") { configure<AppExtension> { ensureObfuscations() } }
-
-    private fun AppExtension.ensureObfuscations() {
-        applicationVariants.configureEach variant@{
-            assembleProvider.configure {
-                doLast {
-                    check(buildType.isDebuggable || buildType.isMinifyEnabled) {
-                        "The build '$${this@variant.name}' is not minified. It must not be released!"
+    private fun Project.setupIfApplication() = plugins.withId("com.android.application") {
+        configure<AppExtension> {
+            applicationVariants.configureEach variant@{
+                assembleProvider.configure {
+                    doLast {
+                        check(buildType.isDebuggable || buildType.isMinifyEnabled) {
+                            "The build '$${this@variant.name}' is not minified. It must not be released!"
+                        }
                     }
                 }
             }
         }
     }
+
+    private fun Project.android(): BaseExtension =
+        project.extensions.findByType(BaseExtension::class.java)
+            ?: throw GradleException("Project $name is not an Android project")
+
+    private fun getVersionCode() = 1
+
+    private fun getVersionName() = "1.0.0"
 }

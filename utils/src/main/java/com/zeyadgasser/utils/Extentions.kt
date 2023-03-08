@@ -19,7 +19,7 @@ val BaseExtension.variants: DomainObjectSet<out BaseVariant>
         else -> error("unsupported module type: $this")
     }
 
-fun Project.android(): BaseExtension =
+private fun Project.android(): BaseExtension =
     project.extensions.findByType(BaseExtension::class.java)
         ?: throw GradleException("Project $name is not an Android project")
 

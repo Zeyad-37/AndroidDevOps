@@ -7,7 +7,6 @@ dependencies {
     implementation(project(":testing"))
     implementation(project(":coverage"))
     implementation(project(":detekt"))
-    implementation(project(":utils"))
     implementation("com.android.tools.build:gradle:7.4.1")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
 }
@@ -19,7 +18,7 @@ pluginBundle {
 }
 
 group = "com.zeyadgasser"
-version = "1.0.0"
+version = "1.0.1"
 
 gradlePlugin {
     plugins {

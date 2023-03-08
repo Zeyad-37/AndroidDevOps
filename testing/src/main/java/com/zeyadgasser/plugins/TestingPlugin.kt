@@ -1,13 +1,14 @@
 package com.zeyadgasser.plugins
 
-import com.zeyadgasser.utils.AndroidConfig
-import com.zeyadgasser.utils.DepVersions.composeUIVersion
-import com.zeyadgasser.utils.DepVersions.hiltVersion
-import com.zeyadgasser.utils.DepVersions.junit5Version
-import com.zeyadgasser.utils.android
+import com.android.build.gradle.BaseExtension
+import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
+
+const val JUNIT_5_VERSION = "5.9.2"
+const val HILT_VERSION = "2.44.2"
+const val COMPOSE_UI_VERSION = "1.3.3"
 
 class TestingPlugin : Plugin<Project> {
 
@@ -16,9 +17,9 @@ class TestingPlugin : Plugin<Project> {
         with(android()) {
             defaultConfig {
                 testInstrumentationRunner =
-                    AndroidConfig.testInstrumentationRunner
+                    "de.mannodermaus.junit5.AndroidJUnit5Builder" // "com.zeyadgasser.test_base.FluxTestRunner"
                 testInstrumentationRunnerArguments["runnerBuilder"] =
-                    AndroidConfig.testInstrumentationRunnerArguments
+                    "de.mannodermaus.junit5.AndroidJUnit5Builder"
             }
             testOptions.unitTests.isReturnDefaultValues = true
             packagingOptions {
@@ -41,10 +42,10 @@ class TestingPlugin : Plugin<Project> {
 
     private fun Project.hilt() {
         dependencies.add(
-            "androidTestImplementation", "com.google.dagger:hilt-android-testing:$hiltVersion"
+            "androidTestImplementation", "com.google.dagger:hilt-android-testing:$HILT_VERSION"
         )
         dependencies.add(
-            "kaptAndroidTest", "com.google.dagger:hilt-android-compiler:$hiltVersion"
+            "kaptAndroidTest", "com.google.dagger:hilt-android-compiler:$HILT_VERSION"
         )
     }
 
@@ -52,7 +53,7 @@ class TestingPlugin : Plugin<Project> {
         dependencies.add("androidTestImplementation", "androidx.test.ext:junit:1.1.5")
         dependencies.add("androidTestImplementation", "androidx.test.espresso:espresso-core:3.5.1")
         dependencies.add(
-            "androidTestImplementation", "androidx.compose.ui:ui-test-junit4:$composeUIVersion"
+            "androidTestImplementation", "androidx.compose.ui:ui-test-junit4:$COMPOSE_UI_VERSION"
         )
     }
 
@@ -72,22 +73,22 @@ class TestingPlugin : Plugin<Project> {
     private fun Project.junit() {
         dependencies.add("testImplementation", "junit:junit:4.13.2")
         dependencies.add(
-            "testImplementation", "org.junit.jupiter:junit-jupiter:$junit5Version"
+            "testImplementation", "org.junit.jupiter:junit-jupiter:$JUNIT_5_VERSION"
         )
         dependencies.add(
-            "testImplementation", "org.junit.jupiter:junit-jupiter:$junit5Version"
+            "testImplementation", "org.junit.jupiter:junit-jupiter:$JUNIT_5_VERSION"
         )
         dependencies.add(
-            "testRuntimeOnly", "org.junit.jupiter:junit-jupiter-params:$junit5Version"
+            "testRuntimeOnly", "org.junit.jupiter:junit-jupiter-params:$JUNIT_5_VERSION"
         )
         dependencies.add(
-            "testRuntimeOnly", "org.junit.vintage:junit-vintage-engine:$junit5Version"
+            "testRuntimeOnly", "org.junit.vintage:junit-vintage-engine:$JUNIT_5_VERSION"
         )
         dependencies.add(
             "androidTestImplementation", "androidx.test:runner:1.5.2"
         )
         dependencies.add(
-            "androidTestImplementation", "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+            "androidTestImplementation", "org.junit.jupiter:junit-jupiter-api:$JUNIT_5_VERSION"
         )
         dependencies.add(
             "androidTestImplementation", "de.mannodermaus.junit5:android-test-core:1.2.2"
@@ -105,4 +106,8 @@ class TestingPlugin : Plugin<Project> {
             }
         }
     }
+
+    private fun Project.android(): BaseExtension =
+        project.extensions.findByType(BaseExtension::class.java)
+            ?: throw GradleException("Project $name is not an Android project")
 }
