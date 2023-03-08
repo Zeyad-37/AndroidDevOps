@@ -11,11 +11,11 @@ dependencies {
 pluginBundle {
     website = "https://github.com/Zeyad-37/AndroidDevOps"
     vcsUrl = "https://github.com/Zeyad-37/AndroidDevOps.git"
-    tags = listOf("devOps", "android", "github-actions", "kotlin", "testing")
+    tags = listOf("devOps", "android", "kotlin", "testing")
 }
 
 group = "com.zeyadgasser"
-version = "1.0"
+version = "1.0.0"
 
 gradlePlugin {
     plugins {
