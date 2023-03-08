@@ -10,7 +10,7 @@ pluginBundle {
 }
 
 group = "com.zeyadgasser"
-version = "1.0"
+version = "1.0.0"
 
 gradlePlugin {
     plugins {
@@ -18,7 +18,7 @@ gradlePlugin {
             id = "com.zeyadgasser.gradle.plugins.git-hooks-plugin"
             implementationClass = "com.zeyadgasser.plugins.GitHooksPlugin"
             displayName = "GitHooksPlugin"
-            description = "Plugin install git hooks from config file"
+            description = "Plugin installs git hooks from config file"
         }
     }
 }
