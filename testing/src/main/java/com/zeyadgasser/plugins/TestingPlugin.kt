@@ -43,7 +43,6 @@ class TestingPlugin : Plugin<Project> {
         if (!propertiesFile.exists()) {
             propertiesFile.createNewFile()
             propertiesFile.writeText("junit.jupiter.testinstace.lifecycle.default=per_class")
-            println("Creating ${propertiesFile.absolutePath} junit-platform.properties and setting test lifecycle to per_class")
         }
     }
 
