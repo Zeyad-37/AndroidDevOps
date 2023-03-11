@@ -18,7 +18,7 @@ pluginBundle {
 }
 
 group = "com.zeyadgasser"
-version = "1.0.1"
+version = "1.0.2"
 
 gradlePlugin {
     plugins {

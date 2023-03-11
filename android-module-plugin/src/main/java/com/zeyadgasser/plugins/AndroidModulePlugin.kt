@@ -1,8 +1,10 @@
 package com.zeyadgasser.plugins
 
+
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.LibraryExtension
 import com.android.builder.core.DefaultApiVersion
 import org.gradle.api.GradleException
 import org.gradle.api.JavaVersion
@@ -24,7 +26,10 @@ class AndroidModulePlugin : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
         val isAppModule = path.split("/").last() == ":app"
-        plugins.apply(if (isAppModule) "com.android.application" else "com.android.library")
+        plugins.apply(
+            if (isAppModule) "com.android.application"
+            else "com.android.library"
+        )
         plugins.apply("kotlin-android")
         plugins.apply("kotlin-parcelize")
         plugins.apply("kotlin-kapt")
@@ -32,7 +37,15 @@ class AndroidModulePlugin : Plugin<Project> {
         apply<TestingPlugin>()
         apply<KoveragePlugin>()
         apply<DetektPlugin>()
-        extensions.configure<ApplicationExtension>("android") {
+        if (isAppModule) extensions.configure<ApplicationExtension>("android") {
+            lint {
+                checkDependencies = true
+                abortOnError = false
+                file("$rootDir/config/lint/lint-baseline.xml")
+                    .takeIf { it.exists() }?.let { baseline = it }
+            }
+        }
+        else extensions.configure<LibraryExtension>("android") {
             lint {
                 checkDependencies = true
                 abortOnError = false
@@ -44,11 +57,11 @@ class AndroidModulePlugin : Plugin<Project> {
             compileSdkVersion(COMPILE_SDK_VERSION)
             buildToolsVersion("33.0.1")
             defaultConfig {
-                if (isAppModule) applicationId = "com.zeyadgasser.platform"
                 minSdkVersion = DefaultApiVersion(MIN_SDK_VERSION)
                 targetSdkVersion = DefaultApiVersion(TARGET_SDK_VERSION)
                 versionCode = getVersionCode()
                 versionName = getVersionName()
+                vectorDrawables.useSupportLibrary = true
             }
             buildFeatures.compose = true
             composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
@@ -74,9 +87,7 @@ class AndroidModulePlugin : Plugin<Project> {
         }
         setupIfApplication()
         addDependencies()
-        extensions.configure<KaptExtension>("kapt") {
-            correctErrorTypes = true
-        }
+        extensions.configure<KaptExtension>("kapt") { correctErrorTypes = true }
     }
 
     private fun Project.addDependencies() {
