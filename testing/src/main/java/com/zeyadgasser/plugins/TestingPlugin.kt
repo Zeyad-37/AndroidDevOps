@@ -6,18 +6,18 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 
-const val JUNIT_5_VERSION = "5.9.2"
-const val HILT_VERSION = "2.44.2"
-const val COMPOSE_UI_VERSION = "1.3.3"
-
 class TestingPlugin : Plugin<Project> {
 
+    companion object {
+        private const val JUNIT_5_VERSION = "5.9.2"
+        private const val HILT_VERSION = "2.44.2"
+        private const val COMPOSE_UI_VERSION = "1.3.3"
+    }
+
     override fun apply(project: Project) = with(project) {
-//        plugins.apply("de.mannodermaus.android-junit5")
         with(android()) {
             defaultConfig {
-                testInstrumentationRunner =
-                    "de.mannodermaus.junit5.AndroidJUnit5Builder" // "com.zeyadgasser.test_base.FluxTestRunner"
+                testInstrumentationRunner = "de.mannodermaus.junit5.AndroidJUnit5Builder"
                 testInstrumentationRunnerArguments["runnerBuilder"] =
                     "de.mannodermaus.junit5.AndroidJUnit5Builder"
             }
@@ -27,6 +27,11 @@ class TestingPlugin : Plugin<Project> {
                 exclude("META-INF/NOTICE")
                 exclude("META-INF/LICENSE")
             }
+        }
+        file("$path/src/test/resources/junit-platform.properties").takeIf { !it.exists() }?.let {
+            println("Creating junit-platform.properties and setting test lifecycle to per_class")
+            it.mkdir()
+            it.writeText("junit.jupiter.testinstace.lifecycle.default=per_class")
         }
         addDependencies()
         setupTestTask()
@@ -100,7 +105,7 @@ class TestingPlugin : Plugin<Project> {
 
     private fun Project.setupTestTask() {
         tasks.withType(Test::class.java) {
-            useJUnitPlatform() {
+            useJUnitPlatform {
                 excludeTags("slow", "ci")
                 includeEngines("junit-jupiter")
             }
