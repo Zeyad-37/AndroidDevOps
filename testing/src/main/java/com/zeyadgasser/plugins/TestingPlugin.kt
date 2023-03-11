@@ -5,6 +5,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
+import java.io.File
 
 class TestingPlugin : Plugin<Project> {
 
@@ -28,13 +29,22 @@ class TestingPlugin : Plugin<Project> {
                 exclude("META-INF/LICENSE")
             }
         }
-        file("$path/src/test/resources/junit-platform.properties").takeIf { !it.exists() }?.let {
-            println("Creating junit-platform.properties and setting test lifecycle to per_class")
-            it.mkdir()
-            it.writeText("junit.jupiter.testinstace.lifecycle.default=per_class")
-        }
+        createJUnit5PropertiesFile()
         addDependencies()
         setupTestTask()
+    }
+
+    private fun Project.createJUnit5PropertiesFile() {
+        val resourcesDir = project.file("src/test/resources")
+        if (!resourcesDir.exists()) {
+            resourcesDir.mkdirs()
+        }
+        val propertiesFile = File(resourcesDir, "junit-platform.properties")
+        if (!propertiesFile.exists()) {
+            propertiesFile.createNewFile()
+            propertiesFile.writeText("junit.jupiter.testinstace.lifecycle.default=per_class")
+            println("Creating ${propertiesFile.absolutePath} junit-platform.properties and setting test lifecycle to per_class")
+        }
     }
 
     private fun Project.addDependencies() {
