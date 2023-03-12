@@ -16,6 +16,7 @@ class TestingPlugin : Plugin<Project> {
     }
 
     override fun apply(project: Project) = with(project) {
+        plugins.apply("kotlin-kapt")
         with(android()) {
             defaultConfig {
                 testInstrumentationRunner = "de.mannodermaus.junit5.AndroidJUnit5Builder"
