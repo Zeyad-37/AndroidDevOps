@@ -26,8 +26,10 @@ class AndroidModulePlugin : Plugin<Project> {
     }
 
     override fun apply(project: Project) = with(project) {
-        val isAppModule = path.split("/").last() == ":app"
-        plugins.apply(if (isAppModule) "com.android.application" else "com.android.library")
+        plugins.apply(
+            if (path.split("/").last() == ":app") "com.android.application"
+            else "com.android.library"
+        )
         plugins.apply("kotlin-android")
         plugins.apply("kotlin-parcelize")
         plugins.apply("kotlin-kapt")
@@ -35,7 +37,7 @@ class AndroidModulePlugin : Plugin<Project> {
         apply<TestingPlugin>()
         apply<KoveragePlugin>()
         apply<DetektPlugin>()
-        configureLint(isAppModule)
+        configureLint()
         configureAndroid()
         setupIfApplication()
         addDependencies()
@@ -70,23 +72,28 @@ class AndroidModulePlugin : Plugin<Project> {
         packagingOptions.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
 
-    private fun Project.configureLint(isAppModule: Boolean) =
-        if (isAppModule) extensions.configure<ApplicationExtension>("android") {
-            lint {
-                checkDependencies = true
-                abortOnError = false
-                file("$rootDir/config/lint/lint-baseline.xml")
-                    .takeIf { it.exists() }?.let { baseline = it }
+    private fun Project.configureLint() {
+        plugins.withId("com.android.application") {
+            configure<ApplicationExtension> {
+                lint {
+                    checkDependencies = true
+                    abortOnError = false
+                    file("$rootDir/config/lint/lint-baseline.xml")
+                        .takeIf { it.exists() }?.let { baseline = it }
+                }
             }
         }
-        else extensions.configure<LibraryExtension>("android") {
-            lint {
-                checkDependencies = true
-                abortOnError = false
-                file("$rootDir/config/lint/lint-baseline.xml")
-                    .takeIf { it.exists() }?.let { baseline = it }
+        plugins.withId("com.android.library") {
+            configure<LibraryExtension> {
+                lint {
+                    checkDependencies = true
+                    abortOnError = false
+                    file("$rootDir/config/lint/lint-baseline.xml")
+                        .takeIf { it.exists() }?.let { baseline = it }
+                }
             }
         }
+    }
 
     private fun Project.addDependencies() {
         dependencies.add("implementation", "androidx.core:core-ktx:1.9.0")
