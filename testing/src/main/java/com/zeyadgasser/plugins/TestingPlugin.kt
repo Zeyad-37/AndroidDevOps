@@ -53,6 +53,17 @@ class TestingPlugin : Plugin<Project> {
         mocking()
         ui()
         hilt()
+        testParameterInjector()
+    }
+
+    private fun Project.testParameterInjector() {
+        dependencies.add(
+            "testImplementation",
+            "com.google.testparameterinjector:test-parameter-injector-junit5:1.11"
+        )
+        dependencies.add(
+            "testImplementation", "com.google.testparameterinjector:test-parameter-injector:1.11"
+        )
     }
 
     private fun Project.hilt() {
