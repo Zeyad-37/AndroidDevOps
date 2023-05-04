@@ -5,25 +5,22 @@ plugins {
 
 dependencies {
     implementation(plugin("io.gitlab.arturbosch.detekt", "1.22.0"))
-    implementation("com.android.tools.build:gradle:7.4.1")
-}
-
-pluginBundle {
-    website = "https://github.com/Zeyad-37/AndroidDevOps"
-    vcsUrl = "https://github.com/Zeyad-37/AndroidDevOps.git"
-    tags = listOf("devOps", "android", "kotlin", "static-analysis")
+    implementation("com.android.tools.build:gradle:8.0.1")
 }
 
 group = "com.zeyadgasser"
-version = "1.0.1"
+version = "1.0.2"
 
 gradlePlugin {
+    website.set("https://github.com/Zeyad-37/AndroidDevOps")
+    vcsUrl.set("https://github.com/Zeyad-37/AndroidDevOps.git")
     plugins {
         create("detektPlugin") {
             id = "com.zeyadgasser.gradle.plugins.detekt-plugin"
             implementationClass = "com.zeyadgasser.plugins.DetektPlugin"
             displayName = "Detekt Plugin"
             description = "Plugin configures detekt to kotlin project"
+            tags.set(listOf("devOps", "android", "kotlin", "static-analysis"))
         }
     }
 }

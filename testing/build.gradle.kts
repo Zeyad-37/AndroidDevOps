@@ -4,25 +4,22 @@ plugins {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.4.1")
-}
-
-pluginBundle {
-    website = "https://github.com/Zeyad-37/AndroidDevOps"
-    vcsUrl = "https://github.com/Zeyad-37/AndroidDevOps.git"
-    tags = listOf("devOps", "android", "kotlin", "testing")
+    implementation("com.android.tools.build:gradle:8.0.1")
 }
 
 group = "com.zeyadgasser"
-version = "1.0.5"
+version = "1.0.6"
 
 gradlePlugin {
+    website.set("https://github.com/Zeyad-37/AndroidDevOps")
+    vcsUrl.set("https://github.com/Zeyad-37/AndroidDevOps.git")
     plugins {
         create("TestingPlugin") {
             id = "com.zeyadgasser.gradle.plugins.testing"
             implementationClass = "com.zeyadgasser.plugins.TestingPlugin"
             displayName = "Testing Plugin"
             description = "Plugin for setting up testing for kotlin modules"
+            tags.set(listOf("devOps", "android", "kotlin", "testing"))
         }
     }
 }

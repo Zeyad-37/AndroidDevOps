@@ -125,48 +125,30 @@ class AndroidModulePlugin : Plugin<Project> {
             "debugImplementation", "androidx.compose.ui:ui-test-manifest:$COMPOSE_UI_VERSION"
         )
         dependencies.add("implementation", "androidx.activity:activity-compose:1.7.1")
-        dependencies.add(
-            "implementation", "androidx.compose.ui:ui:$COMPOSE_UI_VERSION"
-        )
+        dependencies.add("implementation", "androidx.compose.ui:ui:$COMPOSE_UI_VERSION")
         dependencies.add(
             "implementation", "androidx.compose.ui:ui-tooling-preview:$COMPOSE_UI_VERSION"
         )
-        dependencies.add(
-            "implementation", "androidx.compose.ui:ui-viewbinding:$COMPOSE_UI_VERSION"
-        )
-        dependencies.add(
-            "implementation", "androidx.compose.runtime:runtime:$COMPOSE_UI_VERSION"
-        )
+        dependencies.add("implementation", "androidx.compose.ui:ui-viewbinding:$COMPOSE_UI_VERSION")
+        dependencies.add("implementation", "androidx.compose.runtime:runtime:$COMPOSE_UI_VERSION")
         dependencies.add("implementation", "androidx.compose.foundation:foundation:1.4.3")
         dependencies.add("implementation", "androidx.compose.material:material:1.4.3")
     }
 
     private fun Project.navigate() {
-        dependencies.add(
-            "implementation", "androidx.navigation:navigation-compose:$NAV_VERSION"
-        )
-        dependencies.add(
-            "implementation", "androidx.navigation:navigation-fragment:$NAV_VERSION"
-        )
+        dependencies.add("implementation", "androidx.navigation:navigation-compose:$NAV_VERSION")
+        dependencies.add("implementation", "androidx.navigation:navigation-fragment:$NAV_VERSION")
         dependencies.add(
             "implementation", "androidx.navigation:navigation-fragment-ktx:$NAV_VERSION"
         )
-        dependencies.add(
-            "implementation", "androidx.navigation:navigation-ui:$NAV_VERSION"
-        )
-        dependencies.add(
-            "implementation", "androidx.navigation:navigation-ui-ktx:$NAV_VERSION"
-        )
+        dependencies.add("implementation", "androidx.navigation:navigation-ui:$NAV_VERSION")
+        dependencies.add("implementation", "androidx.navigation:navigation-ui-ktx:$NAV_VERSION")
         dependencies.add("implementation", "androidx.hilt:hilt-navigation-compose:1.0.0")
     }
 
     private fun Project.hilt() {
-        dependencies.add(
-            "implementation", "com.google.dagger:hilt-android:$HILT_VERSION"
-        )
-        dependencies.add(
-            "kapt", "com.google.dagger:hilt-compiler:$HILT_VERSION"
-        )
+        dependencies.add("implementation", "com.google.dagger:hilt-android:$HILT_VERSION")
+        dependencies.add("kapt", "com.google.dagger:hilt-compiler:$HILT_VERSION")
     }
 
     private fun Project.setupIfApplication() = plugins.withId("com.android.application") {

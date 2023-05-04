@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.4.1")
+    implementation("com.android.tools.build:gradle:8.0.1")
 }
