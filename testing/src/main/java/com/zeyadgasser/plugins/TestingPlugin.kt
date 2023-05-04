@@ -27,9 +27,12 @@ class TestingPlugin : Plugin<Project> {
             packagingOptions.setExcludes(
                 setOf(
                     "META-INF/LICENSE",
-                    "META-INF/LICENSE",
                     "META-INF/NOTICE",
-                    "META-INF/DEPENDENCIES"
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/MANIFEST.MF",
+                    "META-INF/com.android.tools/proguard/coroutines.pro",
+                    "META-INF/proguard/coroutines.pro",
+                    "LICENSE.txt",
                 )
             )
         }
