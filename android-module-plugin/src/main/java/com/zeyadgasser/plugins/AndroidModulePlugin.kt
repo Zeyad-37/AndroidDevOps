@@ -19,10 +19,10 @@ class AndroidModulePlugin : Plugin<Project> {
         private const val COMPILE_SDK_VERSION = 33
         private const val MIN_SDK_VERSION = 24
         private const val TARGET_SDK_VERSION = 33
-        private const val LIFECYCLE_VERSION = "2.5.1"
+        private const val LIFECYCLE_VERSION = "2.6.1"
         private const val NAV_VERSION = "2.5.3"
-        private const val HILT_VERSION = "2.44.2"
-        private const val COMPOSE_UI_VERSION = "1.3.3"
+        private const val HILT_VERSION = "2.46"
+        private const val COMPOSE_UI_VERSION = "1.4.3"
     }
 
     override fun apply(project: Project) = with(project) {
@@ -55,7 +55,7 @@ class AndroidModulePlugin : Plugin<Project> {
             vectorDrawables.useSupportLibrary = true
         }
         buildFeatures.compose = true
-        composeOptions.kotlinCompilerExtensionVersion = "1.4.2"
+        composeOptions.kotlinCompilerExtensionVersion = "1.4.7"
         buildTypes {
             getByName("debug") {
                 isDebuggable = true
@@ -96,7 +96,7 @@ class AndroidModulePlugin : Plugin<Project> {
     }
 
     private fun Project.addDependencies() {
-        dependencies.add("implementation", "androidx.core:core-ktx:1.9.0")
+        dependencies.add("implementation", "androidx.core:core-ktx:1.10.0")
         dependencies.add("implementation", "androidx.appcompat:appcompat:1.6.1")
         dependencies.add("implementation", "com.google.android.material:material:1.8.0")
         hilt()
@@ -124,7 +124,7 @@ class AndroidModulePlugin : Plugin<Project> {
         dependencies.add(
             "debugImplementation", "androidx.compose.ui:ui-test-manifest:$COMPOSE_UI_VERSION"
         )
-        dependencies.add("implementation", "androidx.activity:activity-compose:1.6.1")
+        dependencies.add("implementation", "androidx.activity:activity-compose:1.7.1")
         dependencies.add(
             "implementation", "androidx.compose.ui:ui:$COMPOSE_UI_VERSION"
         )
@@ -137,8 +137,8 @@ class AndroidModulePlugin : Plugin<Project> {
         dependencies.add(
             "implementation", "androidx.compose.runtime:runtime:$COMPOSE_UI_VERSION"
         )
-        dependencies.add("implementation", "androidx.compose.foundation:foundation:1.3.1")
-        dependencies.add("implementation", "androidx.compose.material:material:1.3.1")
+        dependencies.add("implementation", "androidx.compose.foundation:foundation:1.4.3")
+        dependencies.add("implementation", "androidx.compose.material:material:1.4.3")
     }
 
     private fun Project.navigate() {
@@ -157,7 +157,7 @@ class AndroidModulePlugin : Plugin<Project> {
         dependencies.add(
             "implementation", "androidx.navigation:navigation-ui-ktx:$NAV_VERSION"
         )
-        dependencies.add("implementation", "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+        dependencies.add("implementation", "androidx.hilt:hilt-navigation-compose:1.0.0")
     }
 
     private fun Project.hilt() {

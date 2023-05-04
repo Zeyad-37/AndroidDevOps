@@ -10,9 +10,9 @@ import java.io.File
 class TestingPlugin : Plugin<Project> {
 
     companion object {
-        private const val JUNIT_5_VERSION = "5.9.2"
-        private const val HILT_VERSION = "2.44.2"
-        private const val COMPOSE_UI_VERSION = "1.3.3"
+        private const val JUNIT_5_VERSION = "5.9.3"
+        private const val HILT_VERSION = "2.46"
+        private const val COMPOSE_UI_VERSION = "1.4.3"
     }
 
     override fun apply(project: Project) = with(project) {
@@ -73,16 +73,15 @@ class TestingPlugin : Plugin<Project> {
     }
 
     private fun Project.mocking() {
-        dependencies.add("testImplementation", "org.mockito:mockito-core:5.1.1")
+        dependencies.add("testImplementation", "org.mockito:mockito-core:5.3.1")
         dependencies.add("testImplementation", "org.mockito.kotlin:mockito-kotlin:4.1.0")
     }
 
     private fun Project.coroutines() {
         dependencies.add(
-            "testImplementation",
-            "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+            "testImplementation", "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
         )
-        dependencies.add("testImplementation", "app.cash.turbine:turbine:0.12.1")
+        dependencies.add("testImplementation", "app.cash.turbine:turbine:0.12.3")
     }
 
     private fun Project.junit() {
