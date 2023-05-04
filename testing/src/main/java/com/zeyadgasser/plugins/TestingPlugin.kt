@@ -24,11 +24,14 @@ class TestingPlugin : Plugin<Project> {
                     "de.mannodermaus.junit5.AndroidJUnit5Builder"
             }
             testOptions.unitTests.isReturnDefaultValues = true
-            packagingOptions {
-                exclude("META-INF/DEPENDENCIES")
-                exclude("META-INF/NOTICE")
-                exclude("META-INF/LICENSE")
-            }
+            packagingOptions.setExcludes(
+                setOf(
+                    "META-INF/LICENSE",
+                    "META-INF/LICENSE",
+                    "META-INF/NOTICE",
+                    "META-INF/DEPENDENCIES"
+                )
+            )
         }
         createJUnit5PropertiesFile()
         addDependencies()
@@ -54,6 +57,7 @@ class TestingPlugin : Plugin<Project> {
         ui()
         hilt()
         testParameterInjector()
+        dependencies.add("testImplementation", "org.robolectric:robolectric:4.9")
     }
 
     private fun Project.testParameterInjector() {
@@ -63,6 +67,10 @@ class TestingPlugin : Plugin<Project> {
         )
         dependencies.add(
             "testImplementation", "com.google.testparameterinjector:test-parameter-injector:1.11"
+        )
+        dependencies.add(
+            "androidTestImplementation",
+            "com.google.testparameterinjector:test-parameter-injector:1.11"
         )
     }
 
@@ -78,6 +86,9 @@ class TestingPlugin : Plugin<Project> {
         dependencies.add("androidTestImplementation", "androidx.test.espresso:espresso-core:3.5.1")
         dependencies.add(
             "androidTestImplementation", "androidx.compose.ui:ui-test-junit4:$COMPOSE_UI_VERSION"
+        )
+        dependencies.add(
+            "debugImplementation", "androidx.compose.ui:ui-test-manifest:$COMPOSE_UI_VERSION"
         )
     }
 
