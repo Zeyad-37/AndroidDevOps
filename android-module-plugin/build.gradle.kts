@@ -12,7 +12,7 @@ dependencies {
 }
 
 group = "com.zeyadgasser"
-version = "1.1.1"
+version = "1.1.2"
 
 gradlePlugin {
     website.set("https://github.com/Zeyad-37/AndroidDevOps")
