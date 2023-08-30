@@ -11,10 +11,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.gradleKotlinDsl
-import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
-import org.jetbrains.kotlin.gradle.plugin.kotlinToolingVersion
 
 class AndroidModulePlugin : Plugin<Project> {
 
@@ -25,7 +22,7 @@ class AndroidModulePlugin : Plugin<Project> {
         private const val LIFECYCLE_VERSION = "2.6.1"
         private const val NAV_VERSION = "2.7.1"
         private const val HILT_VERSION = "2.47"
-        private const val COMPOSE_UI_VERSION = "1.4.3"
+        private const val COMPOSE_UI_VERSION = "1.5.0"
     }
 
     override fun apply(project: Project) = with(project) {
@@ -65,7 +62,7 @@ class AndroidModulePlugin : Plugin<Project> {
             }
             getByName("release") {
                 isMinifyEnabled = true
-                isShrinkResources = true
+                isShrinkResources = this@with !is LibraryExtension
                 proguardFiles(
                     getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
                 )
