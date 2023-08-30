@@ -20,8 +20,8 @@ class AndroidModulePlugin : Plugin<Project> {
         private const val MIN_SDK_VERSION = 24
         private const val TARGET_SDK_VERSION = 33
         private const val LIFECYCLE_VERSION = "2.6.1"
-        private const val NAV_VERSION = "2.5.3"
-        private const val HILT_VERSION = "2.46"
+        private const val NAV_VERSION = "2.7.1"
+        private const val HILT_VERSION = "2.47"
         private const val COMPOSE_UI_VERSION = "1.4.3"
     }
 
@@ -62,6 +62,7 @@ class AndroidModulePlugin : Plugin<Project> {
             }
             getByName("release") {
                 isMinifyEnabled = true
+                isShrinkResources = true
                 proguardFiles(
                     getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
                 )
