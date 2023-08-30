@@ -11,7 +11,10 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.gradleKotlinDsl
+import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
+import org.jetbrains.kotlin.gradle.plugin.kotlinToolingVersion
 
 class AndroidModulePlugin : Plugin<Project> {
 
@@ -55,7 +58,7 @@ class AndroidModulePlugin : Plugin<Project> {
             vectorDrawables.useSupportLibrary = true
         }
         buildFeatures.compose = true
-        composeOptions.kotlinCompilerExtensionVersion = "1.4.7"
+        composeOptions.kotlinCompilerExtensionVersion = "1.5.3"
         buildTypes {
             getByName("debug") {
                 isDebuggable = true
