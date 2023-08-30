@@ -16,9 +16,9 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 class AndroidModulePlugin : Plugin<Project> {
 
     companion object {
-        private const val COMPILE_SDK_VERSION = 33
+        private const val COMPILE_SDK_VERSION = 34
         private const val MIN_SDK_VERSION = 24
-        private const val TARGET_SDK_VERSION = 33
+        private const val TARGET_SDK_VERSION = 34
         private const val LIFECYCLE_VERSION = "2.6.1"
         private const val NAV_VERSION = "2.7.1"
         private const val HILT_VERSION = "2.47"
@@ -46,7 +46,7 @@ class AndroidModulePlugin : Plugin<Project> {
 
     private fun Project.configureAndroid() = with(android()) {
         compileSdkVersion(COMPILE_SDK_VERSION)
-        buildToolsVersion("33.0.1")
+        buildToolsVersion("34.0.0")
         defaultConfig {
             minSdkVersion = DefaultApiVersion(MIN_SDK_VERSION)
             targetSdkVersion = DefaultApiVersion(TARGET_SDK_VERSION)
