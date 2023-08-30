@@ -7,12 +7,12 @@ dependencies {
     implementation(project(":testing"))
     implementation(project(":coverage"))
     implementation(project(":detekt"))
-    implementation("com.android.tools.build:gradle:8.0.1")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
+    implementation("com.android.tools.build:gradle:8.1.1")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
 }
 
 group = "com.zeyadgasser"
-version = "1.1.3"
+version = "1.1.5"
 
 gradlePlugin {
     website.set("https://github.com/Zeyad-37/AndroidDevOps")
