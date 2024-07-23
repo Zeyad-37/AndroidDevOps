@@ -55,7 +55,7 @@ class AndroidModulePlugin : Plugin<Project> {
             vectorDrawables.useSupportLibrary = true
         }
         buildFeatures.compose = true
-        composeOptions.kotlinCompilerExtensionVersion = "1.5.3"
+        composeOptions.kotlinCompilerExtensionVersion = "1.5.13"
         buildTypes {
             getByName("debug") {
                 isDebuggable = true
